@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   HStack,
   IconButton,
@@ -7,7 +8,7 @@ import {
   Text,
   Heading,
   FlatList,
-  Center
+  Center,
 } from "native-base";
 import { SignOut } from "phosphor-react-native";
 import { ChatTeardropText } from "phosphor-react-native";
@@ -72,7 +73,17 @@ export function Home() {
     },
   ]);
 
+  const navigation = useNavigation();
   const { colors } = useTheme();
+
+  function handleNewOrder() {
+    navigation.navigate("new");
+  }
+
+  function handleOpenDetails(orderId: string) {
+    navigation.navigate("details", { orderId });
+  }
+
   return (
     <VStack flex={1} pb={6} bg="gray.700">
       <HStack
@@ -96,8 +107,8 @@ export function Home() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading color="gray.100">Meus chamados</Heading>
-          <Text color="gray.200">0</Text>
+          <Heading color="gray.100">Solicitações</Heading>
+          <Text color="gray.200">{orders.length}</Text>
         </HStack>
 
         <HStack space={3} mb={8}>
@@ -115,23 +126,26 @@ export function Home() {
           />
         </HStack>
         <FlatList
-          data={[]}
+          data={orders}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (
             <Center>
               <ChatTeardropText color={colors.gray[300]} size={40} />
-              <Text color = "gray.300" fontSize="xl" mt={6} textAlign="center">
-                Você ainda não possui{'\n'}
-                solicitações {statusSelected === 'open'? 'em andamento' : 'finalizadas'}
+              <Text color="gray.300" fontSize="xl" mt={6} textAlign="center">
+                Você ainda não possui{"\n"}
+                solicitações{" "}
+                {statusSelected === "open" ? "em andamento" : "finalizadas"}
               </Text>
             </Center>
           )}
         />
 
-        <Button title="Nova solicitação" />
+        <Button title="Nova solicitação" onPress={handleNewOrder} />
       </VStack>
     </VStack>
   );
