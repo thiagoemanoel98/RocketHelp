@@ -6,7 +6,7 @@ import {
   CircleWavyCheck,
   Hourglass,
   DesktopTower,
-  Clipboard,
+  ClipboardText,
 } from "phosphor-react-native";
 
 import { Header } from "../components/Header";
@@ -74,7 +74,7 @@ export function Details() {
           patrimony,
           description,
           status,
-          created_at,
+          onCreated_at,
           closed_at,
           solution,
         } = doc.data();
@@ -87,7 +87,7 @@ export function Details() {
           description,
           status,
           solution,
-          when: dateFormat(created_at),
+          when: dateFormat(onCreated_at),
           closed,
         });
 
@@ -98,7 +98,6 @@ export function Details() {
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <VStack flex={1} bg="gray.700">
       <Box px={6} bg="gray.600">
@@ -133,7 +132,8 @@ export function Details() {
         <CardDetails
           title="Descrição do problema"
           description={order.description}
-          icon={Clipboard}
+          icon={ClipboardText}
+          footer={`Registrado em ${order.when}`}
         />
 
         <CardDetails
