@@ -6,6 +6,6 @@ export type OrderFirestoreDTO = {
     description: string;
     status: 'open' | 'closed';
     solution?: string;
-    created_at: FirebaseFirestoreTypes.Timestamp;
+    onCreated_at: FirebaseFirestoreTypes.Timestamp;
     closed_at?: FirebaseFirestoreTypes.Timestamp;
 }
