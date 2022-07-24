@@ -44,7 +44,7 @@ export function Order({ data, ...rest }: Props) {
 
         <VStack flex={1} my={5} ml={5}>
           <Text color="white" fontSize="md">
-            Patrimônio {data.patrimony}
+            Patrimônio: {data.patrimony}
           </Text>
 
           <HStack alignItems="center">

@@ -48,7 +48,7 @@ export function Register() {
       <Header title="Nova solicitação" />
 
       <Input
-        placeholder="Descrição do problema"
+        placeholder="Número da solicitação"
         mt={4}
         onChangeText={setPatrimony}
       />
